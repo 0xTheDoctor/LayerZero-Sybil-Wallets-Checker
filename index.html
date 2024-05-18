@@ -150,7 +150,7 @@
     <script>
         let walletAddresses = [];
 
-        // Load wallet addresses from file
+        // wallet addresses from file
         fetch('wallets.txt')
             .then(response => response.text())
             .then(data => {
@@ -162,11 +162,10 @@
             const resultElement = document.getElementById('result');
             const loadingElement = document.getElementById('loading');
 
-            // Clear previous results
+            
             resultElement.style.display = 'none';
             loadingElement.style.display = 'block';
-
-            // Simulate loading
+            
             setTimeout(() => {
                 loadingElement.style.display = 'none';
 
@@ -178,7 +177,7 @@
                     resultElement.className = 'result error';
                 }
                 resultElement.style.display = 'block';
-            }, 1000); // Simulating network delay
+            }, 1000); //
         }
     </script>
 </body>
