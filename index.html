@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LayerZero Sybil Checker</title>
+    <style>
+        body {
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 30px 40px;
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        h4 {
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            background: linear-gradient(to right, #007bff, #00d4ff);
+            color: #fff;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(to right, #0056b3, #00a1d4);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: none;
+        }
+        .result.success {
+            color: #dc3545;
+        }
+        .result.error {
+            color: #28a745;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+        .loading img {
+            width: 50px;
+        }
+        .socials {
+            margin-top: 20px;
+        }
+        .socials h5 {
+            margin-bottom: 5px;
+        }
+        .socials .social-link {
+            display: inline-block;
+            vertical-align: top;
+        }
+        .socials img {
+            width: 40px;
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+        .socials img:hover {
+            transform: scale(1.1);
+        }
+        .socials p {
+            margin: 0;
+        }
+
+        a:link {
+            color: rgb(255, 255, 255);
+        }
+
+        a:visited {
+            color: rgb(255, 255, 255);
+        }
+
+        a:hover {
+            color: green;
+        }
+
+        a:active {
+        color: red;
+        }
+
+        a:link, a:visited {
+        text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LayerZero Sybil Checker</h1>
+        <h4>Made By 0xTheDoctor</h4>
+        <input type="text" id="walletAddress" placeholder="Paste your wallet address here">
+        <button onclick="checkWalletAddress()">Check for Sybil</button>
+        <div class="loading" id="loading">
+            <img src="loading.gif" alt="Loading...">
+        </div>
+        <div class="result" id="result"></div>
+        <div class="socials">
+            <h5>Follow me on</h5>
+            <p> </p>
+            <div class="social-link">
+                <a href="https://x.com/0xTheDoctor" target="_blank">
+                    <img src="twitter-logo.png" alt="Twitter">
+                    <p>Twitter</p>
+                </a>
+            </div>
+            <div class="social-link">
+                <a href="https://github.com/0xTheDoctor" target="_blank">
+                    <img src="github-logo.png" alt="GitHub">
+                    <p>GitHub</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let walletAddresses = [];
+
+        // Load wallet addresses from file
+        fetch('wallets.txt')
+            .then(response => response.text())
+            .then(data => {
+                walletAddresses = data.split('\n').map(line => line.trim());
+            });
+
+        function checkWalletAddress() {
+            const address = document.getElementById('walletAddress').value.trim();
+            const resultElement = document.getElementById('result');
+            const loadingElement = document.getElementById('loading');
+
+            // Clear previous results
+            resultElement.style.display = 'none';
+            loadingElement.style.display = 'block';
+
+            // Simulate loading
+            setTimeout(() => {
+                loadingElement.style.display = 'none';
+
+                if (walletAddresses.includes(address)) {
+                    resultElement.textContent = "Address marked as sybil !";
+                    resultElement.className = 'result success';
+                } else {
+                    resultElement.textContent = "Address not marked as sybil !";
+                    resultElement.className = 'result error';
+                }
+                resultElement.style.display = 'block';
+            }, 1000); // Simulating network delay
+        }
+    </script>
+</body>
+</html>
