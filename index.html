@@ -131,7 +131,6 @@
         <div class="result" id="result"></div>
         <div class="socials">
             <h5>Follow me on</h5>
-            <p> </p>
             <div class="social-link">
                 <a href="https://x.com/0xTheDoctor" target="_blank">
                     <img src="twitter-logo.png" alt="Twitter">
@@ -154,11 +153,11 @@
         fetch('wallets.txt')
             .then(response => response.text())
             .then(data => {
-                walletAddresses = data.split('\n').map(line => line.trim());
+                walletAddresses = data.split('\n').map(line => line.trim().toLowerCase());
             });
 
         function checkWalletAddress() {
-            const address = document.getElementById('walletAddress').value.trim();
+            const address = document.getElementById('walletAddress').value.trim().toLowerCase();
             const resultElement = document.getElementById('result');
             const loadingElement = document.getElementById('loading');
 
